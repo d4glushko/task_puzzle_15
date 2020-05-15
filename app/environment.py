@@ -6,6 +6,9 @@ from typing import List, Optional, Tuple
 class PuzzleEnvironmentException(Exception):
     pass
 
+class PuzzleEnvironmentNotReadyException(PuzzleEnvironmentException):
+    pass
+
 
 class PuzzleAction(enum.Enum):
     UP = 1
@@ -51,7 +54,7 @@ class PuzzleEnvironment:
 
     def act(self, action: PuzzleAction):
         if not self.__is_env_ready():
-            raise PuzzleEnvironmentException("Environment is not ready")
+            raise PuzzleEnvironmentNotReadyException()
 
         if self.__empty_position[0] == 0 and action == PuzzleAction.DOWN or \
             self.__empty_position[1] == 0 and action == PuzzleAction.RIGHT or \
@@ -78,12 +81,12 @@ class PuzzleEnvironment:
 
     def get_state(self) -> Optional[List[List[Optional[int]]]]:
         if not self.__is_env_ready():
-            raise PuzzleEnvironmentException("Environment is not ready")
+            raise PuzzleEnvironmentNotReadyException()
         return self.__env
 
     def is_completed(self) -> bool:
         if not self.__is_env_ready():
-            raise PuzzleEnvironmentException("Environment is not ready")
+            raise PuzzleEnvironmentNotReadyException()
 
         if self.__env[self.__settings.rows_number - 1][self.__settings.cols_number - 1] is not None:
             return False
