@@ -19,9 +19,9 @@ class CursesKeysWrapper:
 
 
 class PuzzleGame:
-    def __init__(self, window, env_settings: PuzzleEnvironmentSettings):
+    def __init__(self, window, env_settings: PuzzleEnvironmentSettings, debug: bool):
         self.puzzle_env: PuzzleEnvironment = PuzzleEnvironment(env_settings)
-        self.view: TerminalView = TerminalView(window)
+        self.view: TerminalView = TerminalView(window, debug)
         self.window = window
 
     def reset_game(self):

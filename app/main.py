@@ -4,6 +4,7 @@ import curses
 
 from environment import PuzzleEnvironmentSettings
 from game import PuzzleGame
+from utils import str2bool
 
 
 @contextmanager
@@ -31,7 +32,7 @@ def terminal_window():
 def main(arguments):
     with terminal_window() as window:
         puzzle_env_settings = PuzzleEnvironmentSettings(arguments.rows_number, arguments.cols_number)
-        game = PuzzleGame(window, puzzle_env_settings)
+        game = PuzzleGame(window, puzzle_env_settings, arguments.debug)
         game.start()
 
 
@@ -39,6 +40,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--rows_number', type=int, default=4)
     parser.add_argument('--cols_number', type=int, default=4)
+    parser.add_argument('--debug', type=str2bool, default=True)
 
     args = parser.parse_args()
     main(args)

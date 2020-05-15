@@ -72,7 +72,7 @@ class PuzzleEnvironment:
         self.__env[new_pos[0]][new_pos[1]] = buf
         self.__empty_position = new_pos
 
-    def get_state(self):
+    def get_state(self) -> Optional[List[List[Optional[int]]]]:
         if not self.__is_env_ready():
             raise PuzzleEnvironmentException("Environment is not ready")
         return self.__env
