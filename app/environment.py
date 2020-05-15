@@ -16,6 +16,9 @@ class PuzzleAction(enum.Enum):
 
 class PuzzleEnvironmentSettings:
     def __init__(self, rows_number: int, cols_number: int):
+        if rows_number <= 1 or cols_number <= 1:
+            message = "Rows and Columns numbers must be greater than 1. Current values: {} and {}".format(rows_number, cols_number)
+            raise PuzzleEnvironmentException(message)
         self.rows_number: int = rows_number
         self.cols_number: int = cols_number
 
@@ -65,7 +68,8 @@ class PuzzleEnvironment:
         elif action == PuzzleAction.RIGHT:
             new_pos = (self.__empty_position[0], self.__empty_position[1] - 1)
         else:
-            raise PuzzleEnvironmentException(f"Incorrect action: {action.name}. Available actions: {[el.name for el in list(PuzzleAction)]}")
+            message = "Incorrect action: {}. Available actions: {}".format(action.name, [el.name for el in list(PuzzleAction)])
+            raise PuzzleEnvironmentException(message)
 
         buf = self.__env[self.__empty_position[0]][self.__empty_position[1]]
         self.__env[self.__empty_position[0]][self.__empty_position[1]] = self.__env[new_pos[0]][new_pos[1]]

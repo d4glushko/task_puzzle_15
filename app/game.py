@@ -25,12 +25,8 @@ class PuzzleGame:
         self.view: AbstractView = TerminalView(window, debug)
         self.input: AbstractInput = TerminalInput(window)
 
-    def reset_game(self):
-        self.puzzle_env.setup()
-        self.step = 0
-
     def start(self):
-        self.reset_game()
+        self.__reset_game()
         key = None
 
         while True:
@@ -43,7 +39,7 @@ class PuzzleGame:
                 break
             
             if key == CursesKeysWrapper.R:
-                self.reset_game()
+                self.__reset_game()
                 continue
 
             if is_completed:
@@ -62,3 +58,7 @@ class PuzzleGame:
             
             self.step += 1
             self.puzzle_env.act(action)
+
+    def __reset_game(self):
+        self.puzzle_env.setup()
+        self.step = 0
