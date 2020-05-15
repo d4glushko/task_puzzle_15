@@ -1,5 +1,5 @@
 import random
-import typing
+from typing import List, Optional, Tuple
 import enum
 
 
@@ -15,16 +15,16 @@ class PuzzleAction(enum.Enum):
 
 
 class PuzzleEnvironmentSettings:
-    def __init__(self, rows_number: int = 4, cols_number: int = 4):
-        self.rows_number: int = 4
-        self.cols_number: int = 4
+    def __init__(self, rows_number: int, cols_number: int):
+        self.rows_number: int = rows_number
+        self.cols_number: int = cols_number
 
 
 class PuzzleEnvironment:
     def __init__(self, settings: PuzzleEnvironmentSettings):
         self.__settings: PuzzleEnvironmentSettings = settings
-        self.__env: typing.Optional[typing.List[typing.List[int]]] = None
-        self.__empty_position: typing.Optional[typing.Tuple[int, int]] = None
+        self.__env: Optional[List[List[Optional[int]]]] = None
+        self.__empty_position: Optional[Tuple[int, int]] = None
 
     def setup(self):
         self.__env = []
@@ -38,7 +38,9 @@ class PuzzleEnvironment:
                 value = values_left[index]
                 if value == length:
                     self.__empty_position = (i, j)
-                row.append(value)
+                    row.append(None)
+                else:
+                    row.append(value)
 
                 values_left[index] = values_left[elements_count - 1]
                 elements_count -= 1
@@ -70,22 +72,10 @@ class PuzzleEnvironment:
         self.__env[new_pos[0]][new_pos[1]] = buf
         self.__empty_position = new_pos
 
-    def visualize(self):
+    def get_state(self):
         if not self.__is_env_ready():
             raise PuzzleEnvironmentException("Environment is not ready")
-        
-        hidden_value = self.__settings.rows_number * self.__settings.cols_number
-        print(
-            "\n".join([
-                "\t".join(
-                    map(
-                        lambda x: str(x) if x != hidden_value else "", 
-                        row
-                    )
-                ) 
-                for row in self.__env
-            ])
-        )
+        return self.__env
 
     def is_completed(self) -> bool:
         if not self.__is_env_ready():
