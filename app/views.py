@@ -1,6 +1,14 @@
 from typing import List, Optional
+from abc import ABC, abstractmethod
 
-class TerminalView:
+
+class AbstractView(ABC):
+    @abstractmethod
+    def render_screen(self, steps_count: int, env_state: Optional[List[List[Optional[int]]]], action: Optional[int], finished: bool):
+        pass
+
+
+class TerminalView(AbstractView):
     def __init__(self, window, debug: bool):
         self.window = window
         self.debug: bool = debug

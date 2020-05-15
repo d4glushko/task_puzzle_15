@@ -1,7 +1,8 @@
 import curses
 
 from environment import PuzzleEnvironment, PuzzleEnvironmentSettings, PuzzleAction
-from view import TerminalView
+from views import TerminalView, AbstractView
+from inputs import TerminalInput, AbstractInput
 
 
 class CursesKeysWrapper:
@@ -21,8 +22,8 @@ class CursesKeysWrapper:
 class PuzzleGame:
     def __init__(self, window, env_settings: PuzzleEnvironmentSettings, debug: bool):
         self.puzzle_env: PuzzleEnvironment = PuzzleEnvironment(env_settings)
-        self.view: TerminalView = TerminalView(window, debug)
-        self.window = window
+        self.view: AbstractView = TerminalView(window, debug)
+        self.input: AbstractInput = TerminalInput(window)
 
     def reset_game(self):
         self.puzzle_env.setup()
@@ -37,7 +38,7 @@ class PuzzleGame:
             is_completed = self.puzzle_env.is_completed()
             self.view.render_screen(self.step, env_state, key, is_completed)
 
-            key = self.window.getch()
+            key = self.input.get_ch()
             if key == CursesKeysWrapper.Q or key == CursesKeysWrapper.ESC:
                 break
             

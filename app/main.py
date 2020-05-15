@@ -1,6 +1,6 @@
 import argparse
-from contextlib import contextmanager
 import curses
+from contextlib import contextmanager
 
 from environment import PuzzleEnvironmentSettings
 from game import PuzzleGame

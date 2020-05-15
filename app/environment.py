@@ -1,6 +1,6 @@
 import random
-from typing import List, Optional, Tuple
 import enum
+from typing import List, Optional, Tuple
 
 
 class PuzzleEnvironmentException(Exception):
