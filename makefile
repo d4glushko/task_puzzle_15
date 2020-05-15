@@ -4,6 +4,10 @@ init:
 test:
 	pytest
 
+coverage:
+	coverage run -m pytest
+	coverage report
+
 run:
 	chmod +x run.sh
 	./run.sh

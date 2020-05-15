@@ -28,6 +28,11 @@ Run tests:
 make test
 ```
 
+Run tests and show coverage report:
+```
+make coverage
+```
+
 Run app:
 ```
 make run
