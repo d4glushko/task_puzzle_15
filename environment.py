@@ -60,7 +60,7 @@ class PuzzleEnvironment:
             new_pos = (self.__empty_position[0] - 1, self.__empty_position[1])
         elif action == PuzzleAction.LEFT:
             new_pos = (self.__empty_position[0], self.__empty_position[1] + 1)
-        elif action == PuzzleAction.DOWN:
+        elif action == PuzzleAction.RIGHT:
             new_pos = (self.__empty_position[0], self.__empty_position[1] - 1)
         else:
             raise PuzzleEnvironmentException(f"Incorrect action: {action.name}. Available actions: {[el.name for el in list(PuzzleAction)]}")
@@ -71,4 +71,15 @@ class PuzzleEnvironment:
         self.__empty_position = new_pos
 
     def visualize(self):
-        print("\n".join(["\t".join(map(str, row)) for row in self.__env]))
+        hidden_value = self.__settings.rows_number * self.__settings.cols_number
+        print(
+            "\n".join([
+                "\t".join(
+                    map(
+                        lambda x: str(x) if x != hidden_value else "", 
+                        row
+                    )
+                ) 
+                for row in self.__env
+            ])
+        )
