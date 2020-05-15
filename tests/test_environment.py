@@ -136,7 +136,25 @@ def test_is_completed(rows, cols):
 
 
 @pytest.mark.parametrize("rows, cols", test_rows_and_cols)
-def test_is_not_completed(rows, cols):
+def test_is_not_completed_middle_elements(rows, cols):
+    # Arrange
+    env = PuzzleEnvironment(PuzzleEnvironmentSettings(rows, cols))
+    env.setup()
+
+    # Act
+    env._PuzzleEnvironment__env = generate_completed_env(rows, cols)
+    env._PuzzleEnvironment__empty_position = (rows - 1, cols - 1)
+    buf = env._PuzzleEnvironment__env[0][0]
+    env._PuzzleEnvironment__env[0][0] = env._PuzzleEnvironment__env[0][1]
+    env._PuzzleEnvironment__env[0][1] = buf
+    is_completed = env.is_completed()
+
+    # Assert
+    assert not is_completed
+
+
+@pytest.mark.parametrize("rows, cols", test_rows_and_cols)
+def test_is_not_completed_none_element(rows, cols):
     # Arrange
     env = PuzzleEnvironment(PuzzleEnvironmentSettings(rows, cols))
     env.setup()
