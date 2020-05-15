@@ -45,7 +45,7 @@ class PuzzleEnvironment:
             self.__env.append(row)
 
     def act(self, action: PuzzleAction):
-        if self.__env is None or self.__empty_position is None:
+        if not self.__is_env_ready():
             raise PuzzleEnvironmentException("Environment is not ready")
 
         if self.__empty_position[0] == 0 and action == PuzzleAction.DOWN or \
@@ -71,6 +71,9 @@ class PuzzleEnvironment:
         self.__empty_position = new_pos
 
     def visualize(self):
+        if not self.__is_env_ready():
+            raise PuzzleEnvironmentException("Environment is not ready")
+        
         hidden_value = self.__settings.rows_number * self.__settings.cols_number
         print(
             "\n".join([
@@ -83,3 +86,17 @@ class PuzzleEnvironment:
                 for row in self.__env
             ])
         )
+
+    def is_completed(self) -> bool:
+        if not self.__is_env_ready():
+            raise PuzzleEnvironmentException("Environment is not ready")
+
+        for i in range(self.__settings.rows_number):
+            for j in range(self.__settings.cols_number):
+                if self.__env[i][j] != i * self.__settings.cols_number + j + 1:
+                    return False
+
+        return True
+
+    def __is_env_ready(self) -> bool:
+        return self.__env is not None and self.__empty_position is not None
