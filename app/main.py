@@ -2,9 +2,9 @@ import argparse
 import curses
 from contextlib import contextmanager
 
-from environment import PuzzleEnvironmentSettings
-from game import PuzzleGame
-from utils import str2bool
+from app.environment import PuzzleEnvironmentSettings
+from app.game import PuzzleGame
+from app.utils import str2bool
 
 
 @contextmanager
@@ -29,18 +29,8 @@ def terminal_window():
         curses.endwin()
 
 
-def main(arguments):
+def run(args):
     with terminal_window() as window:
-        puzzle_env_settings = PuzzleEnvironmentSettings(arguments.rows_number, arguments.cols_number)
-        game = PuzzleGame(window, puzzle_env_settings, arguments.debug)
+        puzzle_env_settings = PuzzleEnvironmentSettings(args.rows_number, args.cols_number)
+        game = PuzzleGame(window, puzzle_env_settings, args.debug)
         game.start()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--rows_number', type=int, default=4)
-    parser.add_argument('--cols_number', type=int, default=4)
-    parser.add_argument('--debug', type=str2bool, default=True)
-
-    args = parser.parse_args()
-    main(args)

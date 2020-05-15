@@ -1,8 +1,8 @@
 import curses
 
-from environment import PuzzleEnvironment, PuzzleEnvironmentSettings, PuzzleAction
-from views import TerminalView, AbstractView
-from inputs import TerminalInput, AbstractInput
+from app.environment import PuzzleEnvironment, PuzzleEnvironmentSettings, PuzzleAction
+from app.views import TerminalView, AbstractView
+from app.inputs import TerminalInput, AbstractInput
 
 
 class CursesKeysWrapper:
