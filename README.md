@@ -12,6 +12,17 @@ pip install -r requirements.txt
 ```
 
 ### Run Puzzle 15 App
+For the first time only:
 ```
 chmod +x run.sh
+```
+(Optional) Change arguments in `run.sh` file. Default arguments:
+```
+ROWS_NUMBER=4
+COLS_NUMBER=4
+DEBUG=false
+```
+Run app:
+```
+./run.sh
 ```
