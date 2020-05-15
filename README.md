@@ -11,7 +11,7 @@ source venv/bin/activate
 ```
 
 ### Run Puzzle 15 App
-Initialize
+Install all dependencies
 ```
 make init
 ```
