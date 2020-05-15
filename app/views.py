@@ -4,7 +4,9 @@ from abc import ABC, abstractmethod
 
 class AbstractView(ABC):
     @abstractmethod
-    def render_screen(self, steps_count: int, env_state: Optional[List[List[Optional[int]]]], action: Optional[int], finished: bool):
+    def render_screen(
+        self, steps_count: int, env_state: Optional[List[List[Optional[int]]]], action: Optional[int], max_value: int, finished: bool
+    ):
         pass
 
 
@@ -13,7 +15,9 @@ class TerminalView(AbstractView):
         self.window = window
         self.debug: bool = debug
 
-    def render_screen(self, steps_count: int, env_state: Optional[List[List[Optional[int]]]], action: Optional[int], finished: bool):
+    def render_screen(
+        self, steps_count: int, env_state: Optional[List[List[Optional[int]]]], action: Optional[int], max_value: int, finished: bool
+    ):
         self.window.clear()
 
         self.__render_metrics(steps_count)
@@ -21,6 +25,9 @@ class TerminalView(AbstractView):
         if self.debug:
             self.window.addstr("\n")
             self.__render_action(action)
+
+        self.window.addstr("\n")
+        self.__render_instructions(max_value)
 
         self.window.addstr("\n")
         self.__render_controls()
@@ -42,6 +49,12 @@ class TerminalView(AbstractView):
 
     def __render_action(self, action: int):
         self.window.addstr(f"Action: {action}\n")
+
+    def __render_instructions(self, max_value: int):
+        self.window.addstr("Instructions:\n")
+        self.window.addstr("  To succeed in the game you need to order tiles \n")
+        self.window.addstr("  from 1 to {}, where tile number 1 is at the top \n".format(max_value))
+        self.window.addstr("  left corner and empty one is at the bottom right corner\n")
 
     def __render_controls(self):
         self.window.addstr("Controls:\n")
@@ -65,5 +78,5 @@ class TerminalView(AbstractView):
         self.window.addstr(str_state)
 
     def __render_finished(self, steps_count: int):
-        self.window.addstr(f"Game successfully finished in {steps_count} steps!\n")
+        self.window.addstr(f"Game successfully finished in {steps_count} step(s)!\n")
         self.window.addstr(f"You can now restart (R) the game or quit (Q or Esc).")

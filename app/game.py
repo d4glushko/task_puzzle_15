@@ -21,6 +21,7 @@ class CursesKeysWrapper:
 
 class PuzzleGame:
     def __init__(self, window, env_settings: PuzzleEnvironmentSettings, debug: bool):
+        self.max_value = env_settings.cols_number * env_settings.rows_number - 1
         self.puzzle_env: PuzzleEnvironment = PuzzleEnvironment(env_settings)
         self.view: AbstractView = TerminalView(window, debug)
         self.input: AbstractInput = TerminalInput(window)
@@ -32,7 +33,7 @@ class PuzzleGame:
         while True:
             env_state = self.puzzle_env.get_state()
             is_completed = self.puzzle_env.is_completed()
-            self.view.render_screen(self.step, env_state, key, is_completed)
+            self.view.render_screen(self.step, env_state, key, self.max_value, is_completed)
 
             key = self.input.get_ch()
             if key == CursesKeysWrapper.Q or key == CursesKeysWrapper.ESC:
