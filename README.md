@@ -8,21 +8,27 @@ This is a python implementation of Puzzle 15 using terminal.
 ```
 virtualenv venv
 source venv/bin/activate
-pip install -r requirements.txt
 ```
 
 ### Run Puzzle 15 App
-For the first time only:
+Initialize
 ```
-chmod +x run.sh
+make init
 ```
+
 (Optional) Change arguments in `run.sh` file. Default arguments:
 ```
 ROWS_NUMBER=4
 COLS_NUMBER=4
 DEBUG=false
 ```
+
+Run tests:
+```
+make test
+```
+
 Run app:
 ```
-./run.sh
+make run
 ```
