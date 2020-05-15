@@ -81,8 +81,14 @@ class PuzzleEnvironment:
         if not self.__is_env_ready():
             raise PuzzleEnvironmentException("Environment is not ready")
 
+        if self.__env[self.__settings.rows_number - 1][self.__settings.cols_number - 1] is not None:
+            return False
+
         for i in range(self.__settings.rows_number):
             for j in range(self.__settings.cols_number):
+                if i == self.__settings.rows_number - 1 and j == self.__settings.cols_number - 1:
+                    continue
+
                 if self.__env[i][j] != i * self.__settings.cols_number + j + 1:
                     return False
 
