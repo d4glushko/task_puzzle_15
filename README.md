@@ -1,7 +1,7 @@
-# Task Puzzle 15
+# Task Puzzle 15 Terminal Python Application
 https://en.wikipedia.org/wiki/15_puzzle
 
-This is a python implementation of Puzzle 15.
+This is a python implementation of Puzzle 15 using terminal.
 
 ## How to Run
 ### Setup Virtualenv
