@@ -25,8 +25,13 @@ def terminal_window():
         curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_GREEN)
         window.attron(curses.color_pair(1))
         yield window
-    except curses.error:
-        raise CursesWindowTooSmallException("Your terminal window doesn't have enough space for the output view. Please enlarge the window")
+    except curses.error as e:
+        if str(e) == 'addwstr() returned ERR':
+            raise CursesWindowTooSmallException(
+                "Your terminal window doesn't have enough space for the output view. Please enlarge the window"
+            )
+        else:
+            raise
     finally:
         curses.nocbreak()
         window.keypad(False)
