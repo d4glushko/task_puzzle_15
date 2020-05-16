@@ -7,6 +7,10 @@ from app.game import PuzzleGame
 from app.utils import str2bool
 
 
+class CursesWindowTooSmallException(Exception):
+    pass
+
+
 @contextmanager
 def terminal_window():
     window = curses.initscr()
@@ -21,6 +25,8 @@ def terminal_window():
         curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_GREEN)
         window.attron(curses.color_pair(1))
         yield window
+    except curses.error:
+        raise CursesWindowTooSmallException("Your terminal window doesn't have enough space for the output view. Please enlarge the window")
     finally:
         curses.nocbreak()
         window.keypad(False)

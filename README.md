@@ -4,6 +4,13 @@ https://en.wikipedia.org/wiki/15_puzzle
 This is a python implementation of Puzzle 15 using terminal.
 
 ## How to Run
+### Prerequisites
+Make sure your system has installed [Python3](https://www.python.org/downloads/), [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html) and [pip](https://pip.pypa.io/en/stable/installing/)
+```
+python3 --version
+pip3 --version
+```
+
 ### Setup Virtualenv
 ```
 virtualenv venv
